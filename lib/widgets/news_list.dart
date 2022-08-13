@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:newsapp_project/models/news_model.dart';
+import 'package:newsapp_project/screens/news_details_screen.dart';
 
 class NewsList extends StatefulWidget {
   final List<Article> articles;
@@ -11,6 +12,11 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
+  getDate(String v) {
+    final endIndex = v.indexOf("T", 0);
+    return v.substring(0, endIndex);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +25,14 @@ class _NewsListState extends State<NewsList> {
         itemCount: widget.articles.length,
         itemBuilder: ((context, index) {
           return GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NewsDetailsScreen(
+                            article: widget.articles[index],
+                          )));
+            },
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
               child: widget.articles[index].urlToImage != null
@@ -29,22 +42,41 @@ class _NewsListState extends State<NewsList> {
                       child: Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: CachedNetworkImage(
-                              height: 250,
-                              width: double.infinity,
-                              imageUrl: widget.articles[index].urlToImage!,
-                              fit: BoxFit.cover,
+                          ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.1),
+                                BlendMode.darken),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: CachedNetworkImage(
+                                height: 250,
+                                width: double.infinity,
+                                imageUrl: widget.articles[index].urlToImage!,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                           Container(
                             height: 130,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            )),
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      const Color(0xff000000).withOpacity(0.8),
+                                      const Color(0xff464646).withOpacity(0.3),
+                                    ]),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      blurRadius: 7,
+                                      color: Colors.black54,
+                                      spreadRadius: 1,
+                                      offset: Offset(0, 4))
+                                ],
+                                borderRadius: const BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                )),
                             child: Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 16),
@@ -77,7 +109,8 @@ class _NewsListState extends State<NewsList> {
                                                 0.05,
                                       ),
                                       Text(
-                                        widget.articles[index].publishedAt!,
+                                        getDate(widget
+                                            .articles[index].publishedAt!),
                                         style: const TextStyle(
                                             color: Color(0xffbababa),
                                             fontSize: 11,
