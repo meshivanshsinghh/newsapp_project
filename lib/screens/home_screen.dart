@@ -1,4 +1,6 @@
 import 'package:newsapp_project/provider/news_provider.dart';
+import 'package:newsapp_project/utils/shimmer_layout.dart';
+import 'package:newsapp_project/widgets/news_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -25,9 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: np.isLoading == true
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: ShimmerLoading(),
             )
-          : Center(child: Text("HELLO")),
+          : NewsList(articles: np.articles),
     );
   }
 }
