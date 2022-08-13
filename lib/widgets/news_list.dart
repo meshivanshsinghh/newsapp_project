@@ -44,8 +44,8 @@ class _NewsListState extends State<NewsList> {
                         children: [
                           ColorFiltered(
                             colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.1),
-                                BlendMode.darken),
+                                Colors.black.withOpacity(0.2),
+                                BlendMode.overlay),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: CachedNetworkImage(
@@ -58,13 +58,14 @@ class _NewsListState extends State<NewsList> {
                           ),
                           Container(
                             height: 130,
+                            width: double.maxFinite,
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.bottomCenter,
                                     end: Alignment.topCenter,
                                     colors: [
-                                      const Color(0xff000000).withOpacity(0.8),
-                                      const Color(0xff464646).withOpacity(0.3),
+                                      const Color(0xff000000).withOpacity(0.5),
+                                      const Color(0xff464646).withOpacity(0.04),
                                     ]),
                                 boxShadow: const [
                                   BoxShadow(

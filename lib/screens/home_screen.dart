@@ -1,5 +1,5 @@
 import 'package:newsapp_project/provider/news_provider.dart';
-import 'package:newsapp_project/utils/shimmer_layout.dart';
+import 'package:newsapp_project/widgets/shimmer_layout.dart';
 import 'package:newsapp_project/widgets/news_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
