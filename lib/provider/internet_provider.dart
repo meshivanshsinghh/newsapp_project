@@ -8,7 +8,7 @@ class InternetProvider extends ChangeNotifier {
   InternetProvider() {
     checkInternet();
   }
-  checkInternet() async {
+  Future checkInternet() async {
     var result = await Connectivity().checkConnectivity();
     if (result == ConnectivityResult.none) {
       _hasInternet = false;

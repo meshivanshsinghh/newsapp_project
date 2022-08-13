@@ -24,12 +24,12 @@ class _NoInternetPageState extends State<NoInternetPage> {
             const Icon(
               Icons.network_check,
               size: 100,
-              color: Colors.black,
+              color: Colors.white,
             ),
             const SizedBox(height: 5),
-            Text("No Internet Connection!",
+            const Text("No Internet Connection!",
                 style: TextStyle(
-                    color: Colors.grey[800],
+                    color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.w600)),
             const SizedBox(height: 5),
@@ -38,16 +38,24 @@ class _NoInternetPageState extends State<NoInternetPage> {
             const SizedBox(height: 30),
             ElevatedButton(
                 onPressed: () {
-                  internetbloc.checkInternet();
-                  if (internetbloc.hasInternet == true) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const HomeScreen())));
-                  }
+                  internetbloc.checkInternet().whenComplete(() =>
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const HomeScreen()))));
                 },
                 style: ElevatedButton.styleFrom(primary: Colors.black),
                 child: const Text("Check Again",
+                    style: TextStyle(color: Colors.white, fontSize: 16))),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => const HomeScreen())));
+                },
+                style: ElevatedButton.styleFrom(primary: Colors.black),
+                child: const Text("Load Saved Data",
                     style: TextStyle(color: Colors.white, fontSize: 16))),
           ],
         ),

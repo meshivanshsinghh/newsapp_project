@@ -16,15 +16,23 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    final ip = context.read<InternetProvider>();
+    getInternetState();
     super.initState();
-    // timer
-    Timer(const Duration(seconds: 2), () {
-      ip.hasInternet == true
-          ? Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()))
-          : Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const NoInternetPage()));
+  }
+
+  // checking the internet state
+  getInternetState() async {
+    final ip = context.read<InternetProvider>();
+    await ip.checkInternet().whenComplete(() {
+      Timer(const Duration(seconds: 2), () {
+        ip.hasInternet == true
+            ? Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()))
+            : Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NoInternetPage()));
+      });
     });
   }
 

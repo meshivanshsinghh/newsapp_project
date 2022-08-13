@@ -1,3 +1,4 @@
+import 'package:newsapp_project/provider/internet_provider.dart';
 import 'package:newsapp_project/provider/news_provider.dart';
 import 'package:newsapp_project/widgets/shimmer_layout.dart';
 import 'package:newsapp_project/widgets/news_list.dart';
@@ -13,9 +14,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
+  void initState() {
+    final np = context.read<NewsProvider>();
+    final ip = context.read<InternetProvider>();
+    if (ip.hasInternet == true && np.firstTime == true) {
+      np.getArticles();
+    } else {
+      np.getFromSF();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // calling our news provider
     final np = context.watch<NewsProvider>();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
