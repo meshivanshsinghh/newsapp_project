@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:newsapp_project/provider/internet_provider.dart';
 import 'package:newsapp_project/screens/home_screen.dart';
+import 'package:newsapp_project/screens/no_internet_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -23,14 +24,19 @@ class _SplashScreenState extends State<SplashScreen> {
           ? Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const HomeScreen()))
           : Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
+              MaterialPageRoute(builder: (context) => const NoInternetPage()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("SPLASHSCREEN")),
+      body: Center(
+          child: Image.asset(
+        "assets/logo.png",
+        height: 80,
+        width: 80,
+      )),
     );
   }
 }

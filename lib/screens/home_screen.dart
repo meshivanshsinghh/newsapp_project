@@ -1,3 +1,5 @@
+import 'package:newsapp_project/provider/news_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,6 +12,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    // calling our news provider
+    final np = context.watch<NewsProvider>();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: const Text(
+          "HEADLINES",
+          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 4),
+        ),
+      ),
+      body: np.isLoading == true
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Center(child: Text("HELLO")),
+    );
   }
 }
